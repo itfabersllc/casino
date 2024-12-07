@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><?php echo e($game->title); ?></title>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+      <style>
+         body,
+         html {
+         position: fixed;
+         }
+      </style>
+    <link rel="stylesheet" href="<?php echo e(asset('frontend/Default/css/games.css')); ?>">
+   </head>
+
+<script>
+
+    if( !sessionStorage.getItem('sessionId') ){
+        sessionStorage.setItem('sessionId', parseInt(Math.random() * 1000000));
+    }
+
+var exitUrl='';
+		if(document.location.href.split("api_exit=")[1]!=undefined){
+		exitUrl=document.location.href.split("api_exit=")[1].split("&")[0];
+		}
+addEventListener('message',function(ev){
+
+if(ev.data=='CloseGame'){
+
+document.location.href=exitUrl;
+}
+
+	});
+</script>
+<script>
+    function injectCSS() {
+        var iframe = document.getElementById('game');
+        var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+        var style = document.createElement('style');
+        style.type = 'text/css';
+        var css = `
+                html, body {
+                    background-color: transparent;
+                }
+                #Desktop, #Desktop body {
+                    display:flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                canvas {
+                   max-width: 700px;
+                }
+            `;
+
+        style.appendChild(document.createTextNode(css));
+
+        // Append <style> element to iframe's <head>
+        iframeDocument.head.appendChild(style);
+    }
+</script>
+
+<body onload="injectCSS()" style="xmargin:0px;width:100%;background-color:black;overflow:hidden;background: url(/frontend/Default/ico/BigBassKeepingitReel.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;">
+
+<iframe id='game' style="margin:0px;border:0px;width:100%;height:100vh;"
+        src='/games/BigBassKeepingitReel/gs2c/html5Game.html?lang=en&cur=<?php if( auth()->user()->present()->shop ): ?><?php echo e(auth()->user()->present()->shop->currency); ?><?php endif; ?>&gameSymbol=vs1dragon8&websiteUrl=&lobbyURL='
+        allowfullscreen>
+
+
+</iframe>
+
+
+
+
+
+
+
+
+
+</body>
+<script rel="javascript" type="text/javascript" src="/games/<?php echo e($game->name); ?>/device.js"></script>
+<script rel="javascript" type="text/javascript" src="/games/<?php echo e($game->name); ?>/addon.js"></script>
+</html>
+<?php /**PATH C:\OSPanel\domains\cas.loc\resources\views/frontend/games/list/BigBassKeepingitReel.blade.php ENDPATH**/ ?>
