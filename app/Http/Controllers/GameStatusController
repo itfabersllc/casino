@@ -1,0 +1,31 @@
+<?php
+
+namespace VanguardLTE\Http\Controllers;
+
+use Illuminate\Support\Facades\File;
+use App\Game;
+
+class GameStatusController extends Controller
+{
+    public function updateGameStatuses()
+    {
+        // Define the path to the public games folder
+        $publicGamesPath = public_path('games');
+
+        // Fetch all games
+        $games = Game::all();
+
+        foreach ($games as $game) {
+            // Check if a folder exists for each game name
+            $folderPath = $publicGamesPath . '/' . $game->name;
+
+            // Set status to 1 if the folder exists
+            if (File::exists($folderPath) && File::isDirectory($folderPath)) {
+                $game->status = 1;
+                $game->save();
+            }
+        }
+
+        return response()->json(['message' => 'Game statuses updated based on folder existence.']);
+    }
+}

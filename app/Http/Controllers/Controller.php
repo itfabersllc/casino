@@ -1,12 +1,11 @@
-<?php
-
-namespace App\Http\Controllers;
-
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
-
-class Controller extends BaseController
+<?php 
+namespace VanguardLTE\Http\Controllers
 {
-    use AuthorizesRequests, ValidatesRequests;
+    abstract class Controller extends \Illuminate\Routing\Controller
+    {
+        use \Illuminate\Foundation\Auth\Access\AuthorizesRequests, 
+            \Illuminate\Foundation\Bus\DispatchesJobs, 
+            \Illuminate\Foundation\Validation\ValidatesRequests;
+    }
+
 }
