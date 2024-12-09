@@ -1,0 +1,8 @@
+{
+    "port": 12087,
+    "host": "casino.dev.itfabers.com",
+    "prefix": "https://",
+    "host_ws": "casino.dev.itfabers.com",
+    "prefix_ws": "wss://",
+    "ssl": true
+}
